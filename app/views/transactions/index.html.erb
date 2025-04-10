@@ -1,36 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-green-600"><%= notice %></p>
 
-<h1>Dashboard Financeiro</h1>
+<h1 class="text-2xl font-bold mb-6">Dashboard Financeiro</h1>
 
-<div style="display: flex; gap: 20px; margin-bottom: 30px;">
-  <div style="padding: 20px; background-color: #e0f7fa; border-radius: 8px;">
-    <strong>Saldo atual</strong><br>
-    <%= number_to_currency(@balance, unit: "R$ ") %>
+<div class="flex gap-5 mb-8">
+  <div class="p-5 bg-cyan-100 rounded-lg">
+    <strong class="block text-gray-700">Saldo atual</strong>
+    <span class="text-lg font-semibold"><%= number_to_currency(@balance, unit: "R$ ") %></span>
   </div>
 
-  <div style="padding: 20px; background-color: #e8f5e9; border-radius: 8px;">
-    <strong>Total de Entradas</strong><br>
-    <%= number_to_currency(@total_incomes, unit: "R$ ") %>
+  <div class="p-5 bg-green-100 rounded-lg">
+    <strong class="block text-gray-700">Total de Entradas</strong>
+    <span class="text-lg font-semibold"><%= number_to_currency(@total_incomes, unit: "R$ ") %></span>
   </div>
 
-  <div style="padding: 20px; background-color: #ffebee; border-radius: 8px;">
-    <strong>Total de Saídas</strong><br>
-    <%= number_to_currency(@total_expenses, unit: "R$ ") %>
+  <div class="p-5 bg-red-100 rounded-lg">
+    <strong class="block text-gray-700">Total de Saídas</strong>
+    <span class="text-lg font-semibold"><%= number_to_currency(@total_expenses, unit: "R$ ") %></span>
   </div>
 </div>
 
 <% content_for :title, "Transactions" %>
 
-<h1>Transactions</h1>
+<h1 class="text-2xl font-bold mb-4">Transactions</h1>
 
-<div id="transactions">
+<div id="transactions" class="space-y-4">
   <% @transactions.each do |transaction| %>
-  
-    <%= render transaction %>
-    <p>
-      <%= link_to "Show this transaction", transaction %>
-    </p>
+    <div class="p-4 border rounded-md shadow-sm bg-white">
+      <%= render transaction %>
+      <p class="mt-2">
+        <%= link_to "Show this transaction", transaction, class: "text-blue-600 hover:underline" %>
+      </p>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New transaction", new_transaction_path %>
+<div class="mt-6">
+  <%= link_to "New transaction", new_transaction_path, class: "inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" %>
+</div>

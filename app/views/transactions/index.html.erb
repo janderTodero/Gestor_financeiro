@@ -1,11 +1,31 @@
 <p style="color: green"><%= notice %></p>
 
+<h1>Dashboard Financeiro</h1>
+
+<div style="display: flex; gap: 20px; margin-bottom: 30px;">
+  <div style="padding: 20px; background-color: #e0f7fa; border-radius: 8px;">
+    <strong>Saldo atual</strong><br>
+    <%= number_to_currency(@balance, unit: "R$ ") %>
+  </div>
+
+  <div style="padding: 20px; background-color: #e8f5e9; border-radius: 8px;">
+    <strong>Total de Entradas</strong><br>
+    <%= number_to_currency(@total_incomes, unit: "R$ ") %>
+  </div>
+
+  <div style="padding: 20px; background-color: #ffebee; border-radius: 8px;">
+    <strong>Total de Saídas</strong><br>
+    <%= number_to_currency(@total_expenses, unit: "R$ ") %>
+  </div>
+</div>
+
 <% content_for :title, "Transactions" %>
 
 <h1>Transactions</h1>
 
 <div id="transactions">
   <% @transactions.each do |transaction| %>
+  
     <%= render transaction %>
     <p>
       <%= link_to "Show this transaction", transaction %>

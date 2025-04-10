@@ -5,6 +5,10 @@ class TransactionsController < ApplicationController
   # GET /transactions or /transactions.json
   def index
     @transactions = current_user.transactions
+    
+    @total_incomes = current_user.transactions.where(transaction_type: "entrada").sum(:amount)
+    @total_expenses = current_user.transactions.where(transaction_type: "saida").sum(:amount)
+    @balance = @total_incomes - @total_expenses
   end
 
   # GET /transactions/1 or /transactions/1.json

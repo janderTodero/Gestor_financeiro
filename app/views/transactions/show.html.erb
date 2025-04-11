@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<% if notice %>
+  <p class="text-green-600 bg-green-100 border border-green-200 rounded px-4 py-2 mb-6">
+    <%= notice %>
+  </p>
+<% end %>
 
-<%= render @transaction %>
+<div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+  <%= render @transaction %>
 
-<div>
-  <%= link_to "Edit this transaction", edit_transaction_path(@transaction) %> |
-  <%= link_to "Back to transactions", transactions_path %>
+  <div class="mt-6 flex flex-wrap gap-4 items-center">
+    <%= link_to "Editar Transação", edit_transaction_path(@transaction),
+                class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition" %>
 
-  <%= button_to "Destroy this transaction", @transaction, method: :delete %>
+    <%= link_to "Voltar para Transações", transactions_path,
+                class: "bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition" %>
+
+    <%= button_to "Excluir Transação", @transaction,
+                  method: :delete,
+                  data: { confirm: "Tem certeza que deseja excluir esta transação?" },
+                  class: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition" %>
+  </div>
 </div>

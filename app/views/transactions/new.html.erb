@@ -1,11 +1,11 @@
-<% content_for :title, "New transaction" %>
+<% content_for :title, "Nova Transação" %>
 
-<h1>New transaction</h1>
+<div class="max-w-2xl mx-auto mt-10">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Nova Transação</h1>
 
-<%= render "form", transaction: @transaction %>
+  <%= render "form", transaction: @transaction %>
 
-<br>
-
-<div>
-  <%= link_to "Back to transactions", transactions_path %>
+  <div class="mt-8">
+    <%= link_to "Voltar para Transações", transactions_path, class: "text-indigo-600 hover:text-indigo-800 underline" %>
+  </div>
 </div>

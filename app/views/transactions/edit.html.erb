@@ -1,12 +1,13 @@
-<% content_for :title, "Editing transaction" %>
+<% content_for :title, "Editando Transação" %>
 
-<h1>Editing transaction</h1>
+<div class="max-w-2xl mx-auto mt-10">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">Editando Transação</h1>
 
-<%= render "form", transaction: @transaction %>
+  <%= render "form", transaction: @transaction %>
 
-<br>
-
-<div>
-  <%= link_to "Show this transaction", @transaction %> |
-  <%= link_to "Back to transactions", transactions_path %>
+  <div class="mt-8 flex space-x-4">
+    <%= link_to "Ver Transação", @transaction, class: "text-indigo-600 hover:text-indigo-800 underline" %>
+    <span>|</span>
+    <%= link_to "Voltar para Transações", transactions_path, class: "text-gray-600 hover:text-gray-800 underline" %>
+  </div>
 </div>

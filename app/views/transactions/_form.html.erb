@@ -1,9 +1,10 @@
-<%= form_with(model: transaction) do |form| %>
+<%= form_with(model: transaction, class: "max-w-md mx-auto mt-10 space-y-6 bg-white p-6 rounded shadow") do |form| %>
   <% if transaction.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
-
-      <ul>
+    <div class="bg-red-100 text-red-800 p-4 rounded">
+      <h2 class="font-semibold mb-2">
+        <%= pluralize(transaction.errors.count, "error") %> proibiu esta transação de ser salva:
+      </h2>
+      <ul class="list-disc list-inside">
         <% transaction.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,26 +13,29 @@
   <% end %>
 
   <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
 
   <div>
-    <%= form.label :amount, style: "display: block" %>
-    <%= form.text_field :amount %>
+    <%= form.label :amount, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :amount, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
+    <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :description, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500", rows: 4 %>
   </div>
 
-  <div>
-    <%= form.label :transaction_type, style: "display: block" %>
-    <%= form.text_field :transaction_type %>
-  </div>
+ <div>
+  <%= form.label :transaction_type, "Tipo de Transação", class: "block text-sm font-medium text-gray-700" %>
+  <%= form.select :transaction_type, 
+                  options_for_select([["Entrada", "entrada"], ["Saída", "saida"]], transaction.transaction_type),
+                  {}, 
+                  class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+</div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Salvar Transação", class: "w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition duration-150" %>
   </div>
 <% end %>

@@ -1,27 +1,22 @@
-<div id="<%= dom_id transaction %>">
-  <p>
-    <strong>Title:</strong>
-    <%= transaction.title %>
-  </p>
+<div id="<%= dom_id transaction %>" class="max-w-md mx-auto bg-white p-6 rounded shadow space-y-4">
+  <div>
+    <p class="text-gray-600 text-sm font-semibold">Título</p>
+    <p class="text-lg text-gray-900"><%= transaction.title %></p>
+  </div>
 
-  <p>
-    <strong>Amount:</strong>
-    <%= transaction.amount %>
-  </p>
+  <div>
+    <p class="text-gray-600 text-sm font-semibold">Valor</p>
+    <p class="text-lg text-gray-900"><%= number_to_currency(transaction.amount, unit: "R$", separator: ",", delimiter: ".") %></p>
+  </div>
 
-  <p>
-    <strong>Description:</strong>
-    <%= transaction.description %>
-  </p>
+  <div>
+    <p class="text-gray-600 text-sm font-semibold">Descrição</p>
+    <p class="text-gray-800"><%= transaction.description %></p>
+  </div>
 
-  <p>
-    <strong>Transaction type:</strong>
-    <%= transaction.transaction_type %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= transaction.user_id %>
-  </p>
+  <div>
+    <p class="text-gray-600 text-sm font-semibold">Tipo de Transação</p>
+    <p class="text-gray-800"><%= transaction.transaction_type %></p>
+  </div>
 
 </div>

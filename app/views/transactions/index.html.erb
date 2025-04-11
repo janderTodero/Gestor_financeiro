@@ -1,39 +1,40 @@
-<p class="text-green-600"><%= notice %></p>
+<% content_for :title, "Dashboard" %>
 
-<h1 class="text-2xl font-bold mb-6">Dashboard Financeiro</h1>
+<p class="text-green-600 mb-4"><%= notice %></p>
 
-<div class="flex gap-5 mb-8">
-  <div class="p-5 bg-cyan-100 rounded-lg">
-    <strong class="block text-gray-700">Saldo atual</strong>
-    <span class="text-lg font-semibold"><%= number_to_currency(@balance, unit: "R$ ") %></span>
+<h1 class="text-3xl font-bold mb-8 text-center">Dashboard Financeiro</h1>
+
+<!-- Dashboard cards com grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+  <div class="p-6 bg-cyan-100 rounded-xl shadow text-center">
+    <strong class="block text-gray-700 text-sm mb-1">Saldo Atual</strong>
+    <span class="text-2xl font-bold text-cyan-800"><%= number_to_currency(@balance, unit: "R$ ") %></span>
   </div>
 
-  <div class="p-5 bg-green-100 rounded-lg">
-    <strong class="block text-gray-700">Total de Entradas</strong>
-    <span class="text-lg font-semibold"><%= number_to_currency(@total_incomes, unit: "R$ ") %></span>
+  <div class="p-6 bg-green-100 rounded-xl shadow text-center">
+    <strong class="block text-gray-700 text-sm mb-1">Total de Entradas</strong>
+    <span class="text-2xl font-bold text-green-800"><%= number_to_currency(@total_incomes, unit: "R$ ") %></span>
   </div>
 
-  <div class="p-5 bg-red-100 rounded-lg">
-    <strong class="block text-gray-700">Total de Saídas</strong>
-    <span class="text-lg font-semibold"><%= number_to_currency(@total_expenses, unit: "R$ ") %></span>
+  <div class="p-6 bg-red-100 rounded-xl shadow text-center">
+    <strong class="block text-gray-700 text-sm mb-1">Total de Saídas</strong>
+    <span class="text-2xl font-bold text-red-800"><%= number_to_currency(@total_expenses, unit: "R$ ") %></span>
   </div>
 </div>
 
-<% content_for :title, "Transactions" %>
-
-<h1 class="text-2xl font-bold mb-4">Transactions</h1>
+<h2 class="text-2xl font-bold mb-4">Transações Recentes</h2>
 
 <div id="transactions" class="space-y-4">
   <% @transactions.each do |transaction| %>
     <div class="p-4 border rounded-md shadow-sm bg-white">
       <%= render transaction %>
       <p class="mt-2">
-        <%= link_to "Show this transaction", transaction, class: "text-blue-600 hover:underline" %>
+        <%= link_to "Ver detalhes", transaction, class: "text-blue-600 hover:underline" %>
       </p>
     </div>
   <% end %>
 </div>
 
-<div class="mt-6">
-  <%= link_to "New transaction", new_transaction_path, class: "inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" %>
+<div class="mt-8 text-center">
+  <%= link_to "Nova Transação", new_transaction_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition" %>
 </div>

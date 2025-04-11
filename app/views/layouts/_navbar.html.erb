@@ -1,11 +1,45 @@
-<nav>
-    <%= link_to "Home", root_path %> |
-    <% if user_signed_in? %>
-        <%= link_to "Transações", transactions_path %> |
-        <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>
-    <%else%>
-        <%= link_to "Login", new_user_session_path %>
-    <%end%>
+<nav class="bg-black text-white p-4 flex justify-between items-center">
+  <!-- Esquerda: "Logo" e link Home -->
+  <div class="flex items-center space-x-4">
+    <span> 
+    <%= link_to "DASHBOARD", root_path, class: "text-xl font-bold text-gray-300 no-underline" %>
+    </span>
+  </div>
 
+  <!-- Direita: Conta / Login -->
+  <div class="relative">
+    <% if user_signed_in? %>
+      <button onclick="toggleDropdown()" class="hover:text-gray-300 focus:outline-none">
+        Conta ▾
+      </button>
+
+      <!-- Dropdown -->
+      <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
+        <%= link_to "Nova Transação", new_transaction_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+        <%= link_to "Transações", transactions_path, class: "block px-4 py-2 hover:bg-gray-100" %>
+        <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "block px-4 py-2 hover:bg-gray-100 text-red-600" %>
+      </div>
+    <% else %>
+      <%= link_to "Login", new_user_session_path, class: "hover:text-gray-300" %>
+    <% end %>
+  </div>
 </nav>
-<hr>
+
+<hr class="my-4 border-gray-700">
+
+<!-- Script para o dropdown -->
+<script>
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.classList.toggle("hidden");
+  }
+
+  // Fecha o dropdown clicando fora
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById("dropdownMenu");
+    const button = event.target.closest('button');
+    if (!event.target.closest('#dropdownMenu') && button?.textContent.trim() !== 'Conta ▾') {
+      menu?.classList.add('hidden');
+    }
+  });
+</script>

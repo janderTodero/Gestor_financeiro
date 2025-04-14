@@ -25,6 +25,31 @@ class TransactionsController < ApplicationController
       percentage = (amount.to_f / expense_total * 100).round(2)
       [category, percentage]
     end.to_h
+
+    @income_colors = [
+      "#15803d", # verde escuro
+      "#0ea5e9", # azul
+      "#22c55e", # verde
+      "#38bdf8", # azul claro
+      "#4ade80", # verde claro
+      "#7dd3fc", # azul bem claro
+      "#86efac", # verde bem claro
+      "#bae6fd", # azul pastel
+      "#bbf7d0", # verde pastel
+      "#e0f2fe"  # azul super leve
+    ]
+
+    @expense_colors = [
+      "#b91c1c", # vermelho escuro
+      "#fee2e2", # rosa bem claro
+      "#fef3c7", # amarelo pastel
+      "#ef4444", # vermelho
+      "#f59e0b", # laranja
+      "#f87171", # vermelho claro
+      "#fbbf24", # amarelo
+      "#fca5a5", # vermelho pastel
+      "#fde68a" # amarelo claro
+    ]
   end
 
   # GET /transactions/1 or /transactions/1.json

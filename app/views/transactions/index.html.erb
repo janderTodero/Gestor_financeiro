@@ -5,48 +5,63 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
   <div class="p-6 bg-cyan-100 rounded-xl shadow text-center">
     <strong class="block text-gray-700 text-sm mb-1">Saldo Atual</strong>
-    <span class="text-2xl font-bold text-cyan-800"><%= number_to_currency(@balance, unit: "R$ ") %></span>
+    <span class="text-2xl font-bold text-cyan-800"><%= number_to_currency_br(@balance) %></span>
   </div>
   <div class="p-6 bg-green-100 rounded-xl shadow text-center">
     <strong class="block text-gray-700 text-sm mb-1">Total de Entradas</strong>
-    <span class="text-2xl font-bold text-green-800"><%= number_to_currency(@total_incomes, unit: "R$ ") %></span>
+    <span class="text-2xl font-bold text-green-800"><%= number_to_currency_br(@total_incomes) %></span>
   </div>
   <div class="p-6 bg-red-100 rounded-xl shadow text-center">
     <strong class="block text-gray-700 text-sm mb-1">Total de Saídas</strong>
-    <span class="text-2xl font-bold text-red-800"><%= number_to_currency(@total_expenses, unit: "R$ ") %></span>
+    <span class="text-2xl font-bold text-red-800"><%= number_to_currency_br(@total_expenses) %></span>
   </div>
 </div>
-<!-- Gráficos lado a lado -->
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+  <!-- Entradas -->
   <div class="bg-white p-4 rounded-xl shadow text-center">
     <h2 class="text-xl font-semibold mb-4">Entradas</h2>
-    <div class="mx-auto w-full max-w-[350px] h-[300px]">
-      <%= pie_chart @income_pie_data,
-  suffix: "%",
-  height: "300px",
-  colors: ["#22c55e", "#86efac", "#4ade80", "#15803d"],
-  library: {
-    pieSliceText: 'percentage',
-    tooltip: { yDecimals: 2, ySuffix: "%" }
-  } %>
-    </div>
+    <% if @income_pie_data.present? %>
+      <div class="mx-auto w-full max-w-[350px] h-[250px]">
+        <%= pie_chart @income_pie_data,
+          suffix: "%",
+          height: "200px",
+          colors: @income_colors,
+          library: {
+            pieSliceText: 'percentage',
+            tooltip: { yDecimals: 2, ySuffix: "%" }
+          } %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 italic">Nenhuma entrada registrada.</p>
+    <% end %>
   </div>
+
+  <!-- Saídas -->
   <div class="bg-white p-4 rounded-xl shadow text-center">
     <h2 class="text-xl font-semibold mb-4">Saídas</h2>
-    <div class="mx-auto w-full max-w-[350px] h-[300px]">
-      <%= pie_chart @expense_pie_data,
-  suffix: "%",
-  height: "300px",
-  colors: ["#f87171", "#fbbf24", "#ef4444", "#b91c1c"],
-  library: {
-    pieSliceText: 'percentage',
-    tooltip: { yDecimals: 2, ySuffix: "%" }
-  } %>
-    </div>
+    <% if @expense_pie_data.present? %>
+      <div class="mx-auto w-full max-w-[350px] h-[250px]">
+        <%= pie_chart @expense_pie_data,
+          suffix: "%",
+          height: "200px",
+          colors: @expense_colors,
+          library: {
+            pieSliceText: 'percentage',
+            tooltip: { yDecimals: 2, ySuffix: "%" }
+          } %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 italic">Nenhuma saída registrada.</p>
+    <% end %>
   </div>
 </div>
-<!-- Lista de Transações -->
-<h2 class="text-2xl font-bold mb-4 text-center">Todas as transações</h2>
+
+<div class="mt-8 text-center">
+  <%= link_to "Nova Transação", new_transaction_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition" %>
+</div>
+
+<h2 class="text-2xl font-bold my-4 text-center">Todas as transações</h2>
 <div id="transactions" class="space-y-4">
   <% @transactions.each do |transaction| %>
     <div class="p-4 border rounded-md shadow-sm bg-white">
@@ -56,7 +71,4 @@
       </p>
     </div>
   <% end %>
-</div>
-<div class="mt-8 text-center">
-  <%= link_to "Nova Transação", new_transaction_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition" %>
 </div>

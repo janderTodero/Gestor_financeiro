@@ -11,31 +11,66 @@
       </ul>
     </div>
   <% end %>
-
   <div>
     <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
-
   <div>
     <%= form.label :amount, class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_field :amount, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
-
   <div>
     <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
     <%= form.text_area :description, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500", rows: 4 %>
   </div>
-
- <div>
-  <%= form.label :transaction_type, "Tipo de Transação", class: "block text-sm font-medium text-gray-700" %>
-  <%= form.select :transaction_type, 
-                  options_for_select([["Entrada", "entrada"], ["Saída", "saida"]], transaction.transaction_type),
-                  {}, 
-                  class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
-</div>
-
-  <div>
-    <%= form.submit "Salvar Transação", class: "w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition duration-150" %>
+  <div data-controller="category-selector">
+    <div>
+      <%= form.label :transaction_type, "Tipo de Transação", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :transaction_type, 
+          options_for_select([["Entrada", "entrada"], ["Saída", "saida"]], transaction.transaction_type),
+          { prompt: "Entrada/saída" },
+          class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500",
+          data: { action: "change->category-selector#toggle", category_selector_target: "type" } %>
+    </div>
+    <!-- Select Categoria Entrada -->
+    <div data-category-selector-target="entrada" style="display: none;">
+      <%= form.label :category, "Categoria (Entrada)", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :category,
+      options_for_select([
+        ["Salário", "salario"],
+        ["Freelance", "freelance"],
+        ["Investimentos", "investimentos"],
+        ["Outros", "outros"]
+      ], transaction.category),
+      { prompt: "Selecione uma categoria" },
+      class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <!-- Select Categoria Saída -->
+    <div data-category-selector-target="saida" style="display: none;">
+      <%= form.label :category, "Categoria (Saída)", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :category,
+      options_for_select([["Selecione uma categoria", ""]], selected: nil, disabled: ["Selecione uma categoria"]) +
+      grouped_options_for_select({
+        "Essenciais" => [
+          ["Moradia", "moradia"],
+          ["Transporte", "transporte"],
+          ["Alimentação", "alimentacao"],
+          ["Saúde", "saude"],
+          ["Educação", "educacao"]
+        ],
+        "Estilo de Vida" => [
+          ["Assinaturas e Serviços", "assinaturas"],
+          ["Lazer", "lazer"],
+          ["Estética e Cosméticos", "estetica"]
+        ],
+        "Financeiros" => [["Investimentos", "investimentos"]],
+        "Outros" => [["Outro", "outro"]]
+      }, transaction.category),
+      {},
+      class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+    <div>
+      <%= form.submit "Salvar Transação", class: "w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition duration-150 mt-8 cursor-pointer" %>
+    </div>
   </div>
 <% end %>

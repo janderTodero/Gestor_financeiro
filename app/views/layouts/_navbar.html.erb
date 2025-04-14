@@ -12,23 +12,14 @@
       <button onclick="toggleDropdown()" class="hover:text-gray-300 cursor-pointer focus:outline-none">
         <%= current_user.email%> ▾
       </button>
-
+    
       <!-- Dropdown -->
       <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg z-50">
         <%= link_to "Nova Transação", new_transaction_path, class: "block px-4 py-2 hover:bg-gray-100" %>
         <%= link_to "Transações", transactions_path, class: "block px-4 py-2 hover:bg-gray-100" %>
         <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "block px-4 py-2 hover:bg-gray-100 text-red-600" %>
       </div>
-    <% else %>
-      <%= link_to "Login", new_user_session_path, class: "hover:text-gray-300" %>
-    <% end %>
-  </div>
-</nav>
-
-<hr class="my-4 border-gray-700">
-
-<!-- Script para o dropdown -->
-<script>
+      <script>
   function toggleDropdown() {
     const menu = document.getElementById("dropdownMenu");
     menu.classList.toggle("hidden");
@@ -43,3 +34,13 @@
     }
   });
 </script>
+    <% else %>
+      <%= link_to "Login", new_user_session_path, class: "hover:text-gray-300" %>
+    <% end %>
+  </div>
+</nav>
+
+<hr class="my-4 border-gray-700">
+
+<!-- Script para o dropdown -->
+

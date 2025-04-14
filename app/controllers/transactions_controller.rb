@@ -5,10 +5,26 @@ class TransactionsController < ApplicationController
   # GET /transactions or /transactions.json
   def index
     @transactions = current_user.transactions
-    
-    @total_incomes = current_user.transactions.where(transaction_type: "entrada").sum(:amount)
-    @total_expenses = current_user.transactions.where(transaction_type: "saida").sum(:amount)
+  
+    @total_incomes = @transactions.where(transaction_type: "entrada").sum(:amount)
+    @total_expenses = @transactions.where(transaction_type: "saida").sum(:amount)
     @balance = @total_incomes - @total_expenses
+  
+    # Entradas por categoria
+    income_grouped = @transactions.where(transaction_type: "entrada").group(:category).sum(:amount)
+    income_total = income_grouped.values.sum
+    @income_pie_data = income_grouped.map do |category, amount|
+      percentage = (amount.to_f / income_total * 100).round(2)
+      [category, percentage]
+    end.to_h
+  
+    # Saídas por categoria
+    expense_grouped = @transactions.where(transaction_type: "saida").group(:category).sum(:amount)
+    expense_total = expense_grouped.values.sum
+    @expense_pie_data = expense_grouped.map do |category, amount|
+      percentage = (amount.to_f / expense_total * 100).round(2)
+      [category, percentage]
+    end.to_h
   end
 
   # GET /transactions/1 or /transactions/1.json
@@ -61,6 +77,7 @@ class TransactionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,6 +89,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.expect(transaction: [ :title, :amount, :description, :transaction_type])
+      params.expect(transaction: [ :title, :amount, :description, :transaction_type, :category])
     end
 end

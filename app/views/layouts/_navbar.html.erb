@@ -9,8 +9,8 @@
   <!-- Direita: Conta / Login -->
   <div class="relative">
     <% if user_signed_in? %>
-      <button onclick="toggleDropdown()" class="hover:text-gray-300 focus:outline-none">
-        Conta ▾
+      <button onclick="toggleDropdown()" class="hover:text-gray-300 cursor-pointer focus:outline-none">
+        <%= current_user.email%> ▾
       </button>
 
       <!-- Dropdown -->
@@ -38,7 +38,7 @@
   document.addEventListener('click', function(event) {
     const menu = document.getElementById("dropdownMenu");
     const button = event.target.closest('button');
-    if (!event.target.closest('#dropdownMenu') && button?.textContent.trim() !== 'Conta ▾') {
+    if (!event.target.closest('#dropdownMenu') && button?.textContent.trim() !== '<%= current_user.email%> ▾') {
       menu?.classList.add('hidden');
     }
   });

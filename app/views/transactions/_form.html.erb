@@ -13,11 +13,12 @@
   <% end %>
   <div>
     <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_field :title, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+    <%= form.text_field :title, placeholder: "Ex: Mercado", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
   </div>
   <div>
   <%= form.label :amount, class: "block text-sm font-medium text-gray-700" %>
   <%= form.text_field :amount,
+        placeholder: "0,00",
         class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500",
         inputmode: "numeric",
         data: {
@@ -28,7 +29,7 @@
 
   <div>
     <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_area :description, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500", rows: 4 %>
+    <%= form.text_area :description, placeholder: "Ex: Salário de Agosto", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500", rows: 4 %>
   </div>
   <div data-controller="category-selector">
     <div>

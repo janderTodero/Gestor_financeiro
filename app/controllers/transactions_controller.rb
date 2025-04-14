@@ -114,7 +114,9 @@ class TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params[:transaction][:amount] = params[:transaction][:amount].gsub(",", ".").to_d
-      params.expect(transaction: [ :title, :amount, :description, :transaction_type, :category])
+      permitted = params.require(:transaction).permit(:title, :amount, :description, :transaction_type, :category)
+      raw_amount = permitted[:amount].gsub(".", "").gsub(",", ".")
+      permitted[:amount] = raw_amount.to_d
+      permitted
     end
 end

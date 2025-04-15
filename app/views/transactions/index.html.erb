@@ -83,10 +83,26 @@
 </div>
 
 <div id="showTransactions" class="hidden">
+
+  <form id="scroll-search" class="w-full max-w-md mx-auto my-6" onsubmit="scrollToTransaction(event)">
+  <div class="relative">
+    <input type="text" id="searchTerm"
+           class="w-full py-3 pl-5 pr-12 text-base italic text-gray-700 bg-white border border-blue-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+           placeholder="Buscar transação por título..." />
+
+    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2">
+      <svg class="w-5 h-5 text-gray-500 hover:text-blue-600 transition" xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12.9 14.32a8 8 0 111.41-1.41l5.38 5.38-1.41 1.41-5.38-5.38zM8 14a6 6 0 100-12 6 6 0 000 12z"/>
+      </svg>
+    </button>
+  </div>
+</form>
+
   <h2 class="text-2xl font-bold my-4 text-center">Todas as transações</h2>
   <div id="transactions" class="space-y-4">
   <% @transactions.each do |transaction| %>
-    <div class="p-4 border rounded-md shadow-sm bg-white">
+    <div class="p-4 border rounded-md shadow-sm bg-white" data-title="<%= transaction.title.downcase %>">
       <%= render transaction %>
       <p class="mt-2">
         <%= link_to "Ver detalhes", transaction, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition" %>
@@ -112,14 +128,32 @@
     }
   }
 
-  document.addEventListener('click', (event) => {
-    const transactions = document.getElementById("showTransactions");
-    const button = event.target.closest('button');
-    
-    // Esconde se clicar fora (ajuste para manter a lógica correta)
-    if (!event.target.closest('#showTransactions') && button?.id !== 'toggleButton') {
-      transactions?.classList.add('hidden');
-      document.getElementById("arrowIcon")?.classList.remove("rotate-90");
+
+
+  function scrollToTransaction(event) {
+  event.preventDefault();
+
+  const term = document.getElementById("searchTerm").value.toLowerCase().trim();
+  const items = document.querySelectorAll("[data-title]");
+  let found = false;
+
+  items.forEach((item) => {
+    const title = item.dataset.title;
+
+    if (title.includes(term)) {
+      if (!found) {
+        item.scrollIntoView({ behavior: "smooth", block: "center" });
+        found = true;
+      }
+
+      item.classList.add("ring-2", "ring-blue-500", "bg-blue-50");
+
+      setTimeout(() => {
+        item.classList.remove("ring-2", "ring-blue-500", "bg-blue-50");
+      }, 3000);
     }
   });
+}
+
+
 </script>

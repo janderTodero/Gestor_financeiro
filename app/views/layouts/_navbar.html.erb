@@ -10,7 +10,7 @@
   <div class="relative">
     <% if user_signed_in? %>
       <button onclick="toggleDropdown()" class="hover:text-gray-300 cursor-pointer focus:outline-none">
-        <%= current_user.email%> ▾
+       Olá, <%= current_user.username%> ▾
       </button>
     
       <!-- Dropdown -->
@@ -29,7 +29,7 @@
   document.addEventListener('click', function(event) {
     const menu = document.getElementById("dropdownMenu");
     const button = event.target.closest('button');
-    if (!event.target.closest('#dropdownMenu') && button?.textContent.trim() !== '<%= current_user.email%> ▾') {
+    if (!event.target.closest('#dropdownMenu') && button?.textContent.trim() !== 'Olá, <%= current_user.username%> ▾') {
       menu?.classList.add('hidden');
     }
   });

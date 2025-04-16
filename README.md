@@ -22,12 +22,12 @@ Gestor Financeiro é uma aplicação web desenvolvida em Ruby on Rails com o obj
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/janderTodero/Gestor_financeiro.git
+   git clone https://github.com/janderTodero/personal_finances.git
    ```
 
 2. Navegue até o diretório do projeto:
    ```bash
-   cd Gestor_financeiro
+   cd personal_finances
    ```
 
 3. Instale as dependências:

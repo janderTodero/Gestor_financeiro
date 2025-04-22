@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: personal_finances
+    name: mysite
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
@@ -9,12 +9,12 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: personal_finances-db
+          name: mysite-db
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false # You'll provide this value on Blueprint creation
       - key: WEB_CONCURRENCY
         value: 2 # Recommended default
 databases:
-  - name: personal_finances-db
+  - name: mysite-db
     plan: free

@@ -87,11 +87,4 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-
-queue:
-  <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
-
-  cache:
-    <<: *production
+  url: <%= ENV['postgresql://personal_finances_43k3_user:6VzDlBNQqMuNbwDq0XmSGddWX1JJNxaO@dpg-d03vkrngi27c73b4c2eg-a/personal_finances_43k3'] %>
